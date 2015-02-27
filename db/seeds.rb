@@ -1,7 +1,13 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+p "Generating Dates"
+
+def find_tuesdays_and_thursdays(date)
+  if Day.all.count < 50
+    if date.tuesday? || date.thursday?
+      Day.create!(talk_date: date, number_of_slots: 5)
+    end
+    date = date.tomorrow
+    find_tuesdays_and_thursdays(date)
+  end
+end
+
+find_tuesdays_and_thursdays(Date.today)

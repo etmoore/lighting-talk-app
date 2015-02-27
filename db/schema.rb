@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226234711) do
+ActiveRecord::Schema.define(version: 20150227041029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "days", force: :cascade do |t|
+    t.date     "talk_date"
+    t.integer  "number_of_slots"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "lightning_talks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "day_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email",      null: false
