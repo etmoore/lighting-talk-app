@@ -1,5 +1,13 @@
 .container
-  %h2.text-center= link_to "Login With Github", sign_in_path, class: "btn btn-primary btn-lg" unless current_user
+  %h2.page-header
+    Lightning Talks for
+    = @day.talk_date
+  %p.pull-right
+    = @day.lightning_talks.count
+    of
+    = @day.number_of_slots
+    talks signed up for
+
   %table.table.table-striped
     %thead
       %th Talk
@@ -8,6 +16,6 @@
     %tbody
       - @lightning_talks.each do |lightning_talk|
         %tr
-          %td= lightning_talk.name
+          %td=lightning_talk.name
           %td= link_to lightning_talk.user.username, user_lightning_talks_path(lightning_talk.user)
           %td= link_to lightning_talk.day.talk_date, day_lightning_talks_path(lightning_talk.day)
