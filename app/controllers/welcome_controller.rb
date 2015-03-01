@@ -5,5 +5,7 @@ class WelcomeController < ApplicationController
     @upcoming_days = @days.select { |d| Date.today < d.talk_date }
     @previous_days = @days.select { |d| Date.today > d.talk_date }
     @classes = ["success", "info", "danger", "warning", "active"]
+    @talk_ideas = TalkIdea.all
+    @talk_idea = TalkIdea.new
   end
 end

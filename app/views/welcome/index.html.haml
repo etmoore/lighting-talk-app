@@ -37,3 +37,23 @@
         = link_to day_lightning_talks_path(day), class: "list-group-item" do
           =day.talk_date.readable_inspect
           %span.badge=day.lightning_talks.count
+    %h2
+      Talk Ideas
+      - if current_user
+        %button.btn.btn-xs.btn-primary{"data-target" => ".bs-example-modal-sm", "data-toggle" => "modal", :type => "button"} New Talk Idea
+        .modal.fade.bs-example-modal-sm{"aria-hidden" => "true", "aria-labelledby" => "mySmallModalLabel", :role => "dialog", :tabindex => "-1"}
+          .modal-dialog
+            .modal-content
+              .modal-header
+                New Talk Idea
+              .modal-body
+                = form_for @talk_idea, html: { class: "form-inline" } do |f|
+                  .form-group
+                    = f.label :name do
+                      Talk Idea
+                    = f.text_field :name, class: "form-control"
+                  .form-group
+                    = f.submit class: "btn btn-info"
+    %ul.list-group
+      - @talk_ideas.each do |talk_idea|
+        %li.list-group-item= talk_idea.name
