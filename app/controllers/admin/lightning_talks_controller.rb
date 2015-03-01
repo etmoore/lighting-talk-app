@@ -3,8 +3,8 @@ class Admin::LightningTalksController < ApplicationController
 
   def new
     @lightning_talk = LightningTalk.new
-    @days = Day.all
-    @users = User.all
+    @days = Day.all.sort_by { |d| d.talk_date }
+    @users = User.all.sort_by { |u| u.username.downcase }
   end
 
   def create
