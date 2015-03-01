@@ -16,6 +16,7 @@ gem 'omniauth-github'
 gem 'rails_12factor', group: :production
 
 group :development, :test do
+  gem 'quiet_assets'
   gem 'pry'
   gem 'byebug'
   gem 'web-console', '~> 2.0'

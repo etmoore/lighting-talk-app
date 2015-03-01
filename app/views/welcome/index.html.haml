@@ -11,7 +11,7 @@
                 =day.talk_date.readable_inspect
               %span.pull-right
                 Slots Available:
-                %span.badge=day.number_of_slots - day.lightning_talks.count
+                %span.badge=day.number_of_slots
 
           .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel", :id => "collapse#{day.id}", class: "#{day == @upcoming_days.first ? 'in' : ''}"}
             .panel-body
@@ -21,22 +21,21 @@
                   %th Talk Topic
                   %th Speaker
                 %tbody
+                  - day.lightning_talks.each do |lightning_talk|
+                    %tr.success
+                      %td=lightning_talk.name
+                      %td=lightning_talk.user.username
                   - day.number_of_slots.times do |i|
-                    -lightning_talk = day.lightning_talks[i]
-                    %tr{class: "#{@classes[i]}"}
-                      - if lightning_talk.present?
-                        %td=lightning_talk.name
-                        %td=lightning_talk.user.username
-                      - else
-                        %td ** Slot Available **
-                        %td= " "
+                    %tr.warning
+                      %td
+                        %b ** Available **
+                      %td
   .col-md-4
     %h2 Previous Talks
     .list-group
       - @previous_days.each do |day|
         = link_to day_lightning_talks_path(day), class: "list-group-item" do
           =day.talk_date.readable_inspect
-          %span.badge=day.lightning_talks.count
     %h2
       Talk Ideas
       - if current_user

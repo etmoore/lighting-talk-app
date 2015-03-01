@@ -8,13 +8,15 @@ class Admin::LightningTalksController < ApplicationController
   end
 
   def create
-    @lightning_talk = LightningTalk.new(lightning_talk_params)
+    lightning_talk = LightningTalk.new(lightning_talk_params)
+    lightning_talk, success = LightningTalkManager.build(lightning_talk)
     @days = Day.all
     @users = User.all
-    if @lightning_talk.save
+    if lightning_talk.save
       flash[:notice] = "Lightning Talk Successfully Created"
       redirect_to root_path
     else
+      @lightning_talk = lightning_talk
       render :new
     end
   end
