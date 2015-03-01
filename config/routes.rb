@@ -11,4 +11,8 @@ Rails.application.routes.draw do
   resources :days, only: [] do
     resources :lightning_talks, only: [:index], module: :days
   end
+
+  namespace :admin do
+    resources :lightning_talks, only: [:new, :create]
+  end
 end
