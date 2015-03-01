@@ -1,4 +1,5 @@
 class AuthenticationsController < ApplicationController
+  skip_before_filter :ensure_current_user
   def create
     username = request.env['omniauth.auth']['info']['nickname']
     github_id = request.env['omniauth.auth']['uid']
