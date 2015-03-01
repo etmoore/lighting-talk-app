@@ -13,7 +13,7 @@
                 Slots Available:
                 %span.badge=day.number_of_slots - day.lightning_talks.count
 
-          .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel", :id => "collapse#{day.id}"}
+          .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel", :id => "collapse#{day.id}", class: "#{day == @upcoming_days.first ? 'in' : ''}"}
             .panel-body
               %table.table-striped.table
                 %thead
