@@ -21,12 +21,12 @@
                   %th Talk Topic
                   %th Speaker
                 %tbody
-                  - day.lightning_talks.each do |lightning_talk|
-                    %tr.success
+                  - day.lightning_talks.each_with_index do |lightning_talk, i|
+                    %tr{ class: "#{i % 2 == 0 ? 'info' : 'default'}"}
                       %td=lightning_talk.name
                       %td=lightning_talk.user.username
                   - day.number_of_slots.times do |i|
-                    %tr.warning
+                    %tr.danger
                       %td
                         %b ** Available **
                       %td
