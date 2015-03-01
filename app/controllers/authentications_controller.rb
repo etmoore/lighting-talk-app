@@ -5,12 +5,18 @@ class AuthenticationsController < ApplicationController
     github_id = request.env['omniauth.auth']['uid']
     email = request.env['omniauth.auth']['info']['email']
     auth_token = request.env['omniauth.auth']['credentials']['token']
-    user = User.find_or_create_by(username: username)
+    user = User.find_by(username: username)
 
-    unless user.auth_token == auth_token && user.email == email
-      user.email = email
-      user.auth_token = auth_token
-      user.save
+
+    # Needed for handling seed data for users on heroku
+    if user.present?
+      unless user.auth_token == auth_token && user.email == email
+        user.email = email
+        user.auth_token = auth_token
+        user.save
+      end
+    else
+      user = User.create(username: username, email: email, auth_token: auth_token)
     end
 
     if user.present?
