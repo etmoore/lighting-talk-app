@@ -3,10 +3,8 @@
     Lightning Talks for
     = @day.talk_date
   %p.pull-right
-    = @day.lightning_talks.count
-    of
     = @day.number_of_slots
-    talks signed up for
+    slots left
 
   %table.table.table-striped
     %thead
@@ -15,7 +13,7 @@
       %th Date
     %tbody
       - @lightning_talks.each do |lightning_talk|
-        %tr
+        %tr.success
           %td=lightning_talk.name
           %td= link_to lightning_talk.user.username, user_lightning_talks_path(lightning_talk.user)
           %td= link_to lightning_talk.day.talk_date, day_lightning_talks_path(lightning_talk.day)
