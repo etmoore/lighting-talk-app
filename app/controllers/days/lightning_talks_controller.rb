@@ -8,7 +8,7 @@ class Days::LightningTalksController < ApplicationController
   def create
     @lightning_talk = @day.lightning_talks.new(lightning_talk_params.merge(user_id: current_user.id))
     if @lightning_talk.save
-      redirect_to root_path, notice: "Thanks for signing up for a lightning talk"
+      redirect_to root_path, notice: "Thanks for signing up for a lightning talk!"
     else
       flash[:notice] = "Something went wrong"
       render :new

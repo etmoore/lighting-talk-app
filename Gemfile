@@ -24,4 +24,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'dotenv-rails'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end
