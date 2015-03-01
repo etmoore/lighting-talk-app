@@ -5,7 +5,13 @@ class AuthenticationsController < ApplicationController
     github_id = request.env['omniauth.auth']['uid']
     email = request.env['omniauth.auth']['info']['email']
     auth_token = request.env['omniauth.auth']['credentials']['token']
-    user = User.find_or_create_by(email: email, auth_token: auth_token, username: username)
+    user = User.find_or_create_by(username: username)
+
+    unless user.auth_token == auth_token && user.email == email
+      user.email = email
+      user.auth_token = auth_token
+      user.save
+    end
 
     if user.present?
       session[:access_token] = auth_token
