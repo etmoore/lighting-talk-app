@@ -1,4 +1,6 @@
 class Admin::LightningTalksController < ApplicationController
+  before_action :require_admin
+
   def new
     @lightning_talk = LightningTalk.new
     @days = Day.all
@@ -21,5 +23,9 @@ class Admin::LightningTalksController < ApplicationController
 
   def lightning_talk_params
     params.require(:lightning_talk).permit(:name, :day_id, :user_id)
+  end
+
+  def require_admin
+    redirect_to root_path, notice: "You don't have permission to access that page" unless current_user && current_user.admin
   end
 end
