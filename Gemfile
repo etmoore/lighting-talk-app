@@ -13,7 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'omniauth-github'
-
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'pry'
