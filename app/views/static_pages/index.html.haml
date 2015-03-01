@@ -1,13 +1,27 @@
 .container
-  %h2.text-center= link_to "Login With Github", sign_in_path, class: "btn btn-primary btn-lg" unless current_user
-  %table.table.table-striped
-    %thead
-      %th Talk
-      %th User
-      %th Date
-    %tbody
-      - @lightning_talks.each do |lightning_talk|
-        %tr
-          %td= lightning_talk.name
-          %td= link_to lightning_talk.user.username, user_lightning_talks_path(lightning_talk.user)
-          %td= link_to lightning_talk.day.talk_date, day_lightning_talks_path(lightning_talk.day)
+  #accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+    - @days.each do |day|
+      .panel.panel-default
+        #headingOne.panel-heading{:role => "tab"}
+          %h4.panel-title{"aria-controls" => "collapse#{day.id}", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse#{day.id}"}
+            %span.glyphicon.glyphicon-chevron-down{"aria-controls" => "collapse#{day.id}", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse#{day.id}"}
+            %a{"aria-controls" => "collapse#{day.id}", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse#{day.id}"}
+              =day.talk_date.readable_inspect
+            %span.pull-right
+              Slots Available:
+              %span.badge=day.number_of_slots - day.lightning_talks.count
+
+        .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel", :id => "collapse#{day.id}"}
+          .panel-body
+            %table.table-striped.table
+              %thead
+                %th Talk Topic
+                %th Speaker
+                %th Date
+              %tbody
+                - day.number_of_slots.times do |i|
+                  -lightning_talk = day.lightning_talks[i]
+                  %tr{class: "#{@classes[i]}"}
+                    %td=lightning_talk.try(:name)
+                    %td=lightning_talk.try(:user).try(:username)
+                    %td=day.talk_date

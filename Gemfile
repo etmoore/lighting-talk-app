@@ -13,10 +13,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.3.3'
 gem 'omniauth-github'
-gem 'pry'
 
 
 group :development, :test do
+  gem 'pry'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'

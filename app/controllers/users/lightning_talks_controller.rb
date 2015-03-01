@@ -2,7 +2,6 @@ class Users::LightningTalksController < ApplicationController
   before_action :set_user
 
   def index
-    binding.pry
     @lightning_talks = @user.lightning_talks
   end
 
@@ -17,9 +16,10 @@ class Users::LightningTalksController < ApplicationController
 
   def create
     @lightning_talk = @user.lightning_talks.new(lightning_talk_params)
+    @days = Day.all
     if @lightning_talk.save
       flash[:notice] = "Thanks for signing up for a lightning talk!"
-      redirect_to lightning_talks_path
+      redirect_to root_path
     else
       render :new
     end

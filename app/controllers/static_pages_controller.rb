@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def index
-    @lightning_talks = LightningTalk.all
+    @days = Day.all
+    @classes = ["success", "info", "danger", "warning", "active"]
   end
 end
