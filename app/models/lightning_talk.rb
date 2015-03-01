@@ -1,5 +1,6 @@
 class LightningTalk < ActiveRecord::Base
   validate :number_of_slots
+  validates :name, :user_id, :day_id, presence: true
 
   belongs_to :user
   belongs_to :day

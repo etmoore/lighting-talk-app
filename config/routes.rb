@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :days, only: [] do
-    resources :lightning_talks, only: [:index], module: :days
+    resources :lightning_talks, only: [:index, :new, :create], module: :days
   end
 
   namespace :admin do

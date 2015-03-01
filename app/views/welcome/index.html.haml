@@ -15,6 +15,7 @@
 
           .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel", :id => "collapse#{day.id}", class: "#{day == @upcoming_days.first ? 'in' : ''}"}
             .panel-body
+              = link_to "Sign Up", new_day_lightning_talk_path(day), class: "btn btn-info btn-xs pull-right"
               %table.table-striped.table
                 %thead
                   %th Talk Topic

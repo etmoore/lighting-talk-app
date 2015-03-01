@@ -1,6 +1,31 @@
 class Days::LightningTalksController < ApplicationController
+  before_action :set_day
+
+  def new
+    @lightning_talk = LightningTalk.new
+  end
+
+  def create
+    @lightning_talk = @day.lightning_talks.new(lightning_talk_params.merge(user_id: current_user.id))
+    if @lightning_talk.save
+      redirect_to root_path, notice: "Thanks for signing up for a lightning talk"
+    else
+      flash[:notice] = "Something went wrong"
+      render :new
+    end
+  end
+
   def index
-    @day = Day.find(params[:day_id])
     @lightning_talks = @day.lightning_talks
+  end
+
+  private
+
+  def lightning_talk_params
+    params.require(:lightning_talk).permit(:name)
+  end
+
+  def set_day
+    @day = Day.find(params[:day_id])
   end
 end
