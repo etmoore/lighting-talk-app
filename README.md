@@ -1,5 +1,7 @@
 ### Lightning Talk App for g7
 
+https://g7talks.herokuapp.com/
+
 ##### Setup Instructions
 
 -  git clone, cd into directory, bundle
