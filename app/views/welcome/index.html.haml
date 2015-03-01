@@ -33,4 +33,6 @@
     %h2 Previous Talks
     .list-group
       - @previous_days.each do |day|
-        = link_to day.talk_date.readable_inspect, day_lightning_talks_path(day), class: "list-group-item"
+        = link_to day_lightning_talks_path(day), class: "list-group-item" do
+          =day.talk_date.readable_inspect
+          %span.badge=day.lightning_talks.count
