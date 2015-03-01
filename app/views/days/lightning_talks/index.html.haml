@@ -10,7 +10,7 @@
       %th Date
     %tbody
       - @lightning_talks.each do |lightning_talk|
-        %tr.success
+        %tr
           %td=lightning_talk.name
           %td= link_to lightning_talk.user.username, user_lightning_talks_path(lightning_talk.user)
           %td= link_to lightning_talk.day.talk_date, day_lightning_talks_path(lightning_talk.day)
