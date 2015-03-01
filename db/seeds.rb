@@ -10,4 +10,4 @@ def find_tuesdays_and_thursdays(date)
   end
 end
 
-find_tuesdays_and_thursdays(Date.today)
+find_tuesdays_and_thursdays(Date.new(2015,02,03))
