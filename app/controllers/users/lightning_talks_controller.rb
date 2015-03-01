@@ -7,7 +7,7 @@ class Users::LightningTalksController < ApplicationController
 
   def new
     @lightning_talk = LightningTalk.new
-    @days = Day.all
+    @days = Day.all.sort_by { |d| d.talk_date}
   end
 
   def show
@@ -15,12 +15,15 @@ class Users::LightningTalksController < ApplicationController
   end
 
   def create
-    @lightning_talk = @user.lightning_talks.new(lightning_talk_params)
-    @days = Day.all
-    if @lightning_talk.save
+    lightning_talk = @user.lightning_talks.new(lightning_talk_params)
+    lightning_talk, success = LightningTalkManager.build(lightning_talk)
+    @days = Day.all.sort_by { |d| d.talk_date}
+    if lightning_talk.save
       flash[:notice] = "Thanks for signing up for a lightning talk!"
       redirect_to root_path
     else
+      flash[:notice] = "Somethign went wrong"
+      @lightning_talk = LightningTalk.new
       render :new
     end
   end

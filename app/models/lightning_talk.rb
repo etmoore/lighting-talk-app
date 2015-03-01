@@ -8,7 +8,7 @@ class LightningTalk < ActiveRecord::Base
   private
 
   def number_of_slots
-    unless self.day.lightning_talks.count < self.day.number_of_slots
+    if self.day.number_of_slots <= 0
       self.errors[:base] << "Lightning talks for #{self.day.talk_date.readable_inspect} at max capacity"
     end
   end
