@@ -1,4 +1,5 @@
 class LightningTalkManager
+
   def self.build(lightning_talk)
     if lightning_talk.save
       day = lightning_talk.day
@@ -8,4 +9,12 @@ class LightningTalkManager
       [lightning_talk, false]
     end
   end
+
+  def self.unbuild(lightning_talk)
+    lightning_talk.destroy
+    day = lightning_talk.day
+    day.update_attributes(number_of_slots: (day.number_of_slots + 1))
+    [lightning_talk, false]
+  end
+
 end
