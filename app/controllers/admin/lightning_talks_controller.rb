@@ -8,7 +8,7 @@ class Admin::LightningTalksController < ApplicationController
 
   def new
     @lightning_talk = LightningTalk.new
-    @days = Day.all.sort_by { |d| d.talk_date }
+    @days = Day.where("talk_date >=?", Time.now).sort_by { |d| d.talk_date }
     @users = User.all.sort_by { |u| u.username.downcase }
   end
 
