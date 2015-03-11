@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :lightning_talks, only: [:new, :create]
+    get '', to: 'dashboard#index', as: '/'
+    resources :lightning_talks
   end
 
   resources :talk_ideas, only: [:create]
