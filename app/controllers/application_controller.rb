@@ -13,4 +13,9 @@ class ApplicationController < ActionController::Base
   def ensure_current_user
     redirect_to root_path, notice: "Please login to see that page" unless current_user.present?
   end
+
+  def require_admin
+    redirect_to root_path, notice: "You don't have permission to access that page" unless current_user && current_user.admin
+  end
+  
 end
