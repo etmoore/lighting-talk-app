@@ -28,7 +28,7 @@ class Admin::LightningTalksController < ApplicationController
   end
 
   def edit
-    @days = Day.all.sort_by { |d| d.talk_date }
+    @days = Day.where("talk_date >=?", Date.today).sort_by { |d| d.talk_date }
     @users = User.all.sort_by { |u| u.username.downcase }
   end
 
