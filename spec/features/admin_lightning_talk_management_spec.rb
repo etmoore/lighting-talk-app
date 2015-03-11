@@ -2,6 +2,8 @@ require 'rails_helper'
 
 feature 'Admin Lightning Talks' do
   before {
+    User.destroy_all
+    LightningTalk.destroy_all
     @user = User.create!(username: "deitrick smells", email: "andrew@internet.com", auth_token: "abc123", admin: true)
     @day = Day.create!(talk_date: Date.today, number_of_slots: 5)
 
