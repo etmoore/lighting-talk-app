@@ -3,7 +3,7 @@ class Admin::LightningTalksController < ApplicationController
   before_action :set_talk, only:[:show, :edit, :update]
 
   def index
-    @lightning_talks = LightningTalk.all
+    @lightning_talks = LightningTalk.all.sort_by { |l| l.day.talk_date}
   end
 
   def new
