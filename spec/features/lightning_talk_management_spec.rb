@@ -26,7 +26,7 @@ feature "creating lightning talks" do
     expect(page).to have_content "Sign Out"
     click_on "New Lightning Talk"
 
-    fill_in "Name", with: "How to dance"
+    fill_in "Talk Topic", with: "How to dance"
     select @day.talk_date, from: "Day"
 
     click_on "Create Lightning Talk"
@@ -44,7 +44,7 @@ feature "creating lightning talks" do
     click_on "Sign Up"
     expect(page).to have_content "New Lightning Talk For"
 
-    fill_in "Name", with: "How to play the fiddle"
+    fill_in "Talk Topic", with: "How to play the fiddle"
 
     click_on "Create Lightning Talk"
 
