@@ -15,14 +15,14 @@ class Admin::LightningTalksController < ApplicationController
   def create
     lightning_talk = LightningTalk.new(lightning_talk_params)
     lightning_talk, success = LightningTalkManager.build(lightning_talk)
-    @days = Day.where("talk_date >=?", Date.today).sort_by { |d| d.talk_date}
-    @users = User.all
     if lightning_talk.save
       flash[:notice] = "Lightning Talk Successfully Created"
       redirect_to admin_lightning_talks_path
     else
-      flash[:notice] = "Somethign went wrong"
+      @days = Day.where("talk_date >=?", Date.today).sort_by { |d| d.talk_date }
+      @users = User.all
       @lightning_talk = lightning_talk
+      flash[:notice] = "Somethign went wrong"
       render :new
     end
   end
@@ -37,6 +37,9 @@ class Admin::LightningTalksController < ApplicationController
       flash[:notice] = "Lightning Talk Successfully Updated"
       redirect_to admin_lightning_talks_path
     else
+      @users = User.all
+      @days = Day.where("talk_date >=?", Date.today).sort_by{ |d| d.talk_date }
+      flash[:notice] = "Something went wrong"
       render :edit
     end
   end
