@@ -28,6 +28,25 @@ class Users::LightningTalksController < ApplicationController
     end
   end
 
+  def edit
+    @lightning_talk = LightningTalk.find(params[:id])
+    ensure_current_talk_owner
+    @days = Day.where("talk_date >=?", Date.today).sort_by { |d| d.talk_date }
+  end
+
+  def update
+    lightning_talk = @user.lightning_talks.find(params[:id])
+    @days = Day.where("talk_date >=?", Date.today).sort_by { |d| d.talk_date }
+    if lightning_talk.update(lightning_talk_params)
+      flash[:notice] = "You updated your lightning talk!"
+      redirect_to root_path
+    else
+      @lightning_talk = lightning_talk
+      flash[:notice] = "Something went wrong"
+      render :edit
+    end
+  end
+
   private
 
   def lightning_talk_params
