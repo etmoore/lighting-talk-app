@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/sign-out', to: 'authentications#destroy'
 
   resources :users, only: [] do
-    resources :lightning_talks, except: [:edit, :update, :destroy], module: :users
+    resources :lightning_talks, except: [:destroy], module: :users
   end
 
   resources :days, only: [] do
