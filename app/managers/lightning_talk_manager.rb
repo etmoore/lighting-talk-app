@@ -26,6 +26,5 @@ class LightningTalkManager
     lightning_talk.destroy
     day = lightning_talk.day
     day.update_attributes(number_of_slots: (day.number_of_slots + 1))
-    [lightning_talk, false]
   end
 end

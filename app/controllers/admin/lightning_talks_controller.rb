@@ -46,7 +46,7 @@ class Admin::LightningTalksController < ApplicationController
 
   def destroy
     lightning_talk = LightningTalk.find(params[:id])
-    lightning_talk, success = LightningTalkManager.unbuild(lightning_talk)
+    LightningTalkManager.unbuild(lightning_talk)
     flash[:notice] = "Lightning Talk successfully Deleted"
     redirect_to admin_lightning_talks_path
   end
