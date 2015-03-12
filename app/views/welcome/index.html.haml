@@ -25,10 +25,15 @@
                     %tr{ class: "#{i % 2 == 0 ? 'info' : 'default'}"}
                       %td=lightning_talk.name
                       %td=lightning_talk.user.username
+                      - if lightning_talk.user == current_user
+                        %td= link_to 'Edit', edit_user_lightning_talk_path(current_user, lightning_talk)
+                      - else
+                        %td
                   - day.number_of_slots.times do |i|
                     %tr.danger
                       %td
                         %b ** Available **
+                      %td
                       %td
   .col-md-4
     %h2 Previous Talks
