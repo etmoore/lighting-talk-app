@@ -34,4 +34,18 @@ feature "creating talk ideas", js: true do
 
     expect(page).to have_content "How to make chocolate"
   end
+
+  scenario "is invalid without a name" do
+    visit root_path
+
+    expect(page).to have_content "Talk Ideas"
+    expect(page).to_not have_button "New Talk Idea"
+
+    click_on "Sign In"
+
+    click_button "New Talk Idea"
+
+    click_on "Create Talk idea"
+    expect(page).to have_content("That wasn't a great idea now was it?")
+  end
 end

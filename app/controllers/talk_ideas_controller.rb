@@ -4,8 +4,8 @@ class TalkIdeasController < ApplicationController
     if @talk_idea.save
       redirect_to root_path, notice: "Thanks for submitting a Talk Idea"
     else
-      flash[:notice] = "Something went wrong!"
-      render_template "welcome/index"
+      flash[:notice] = "That wasn't a great idea now was it?"
+      redirect_to root_path
     end
   end
 end
