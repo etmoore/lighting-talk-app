@@ -33,7 +33,7 @@ feature 'Admin Lightning Talks' do
 
     click_on 'New Lightning Talk Admin'
 
-    fill_in 'Name', with: 'Another Test Talk'
+    fill_in 'Talk Topic', with: 'Another Test Talk'
     select @day.talk_date, from: "Day"
     click_on 'Create Lightning Talk'
 
@@ -50,7 +50,7 @@ feature 'Admin Lightning Talks' do
     expect(page).to have_content 'Test Talk'
     click_on 'Edit'
 
-    fill_in 'Name', with: 'Changed the words'
+    fill_in 'Talk Topic', with: 'Changed the words'
     select new_day.talk_date, from: "Day"
     click_on 'Update Lightning Talk'
 
