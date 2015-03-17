@@ -17,7 +17,7 @@ feature 'User can sign up for talk Idea' do
        credentials: OmniAuth::AuthHash.new(token: user.auth_token),
     })
   }
-  
+
   scenario 'A logged in user can sign up for a talk idea' do
     TalkIdea.destroy_all
     create_talk_idea
@@ -41,7 +41,6 @@ feature 'User can sign up for talk Idea' do
     within '.list-group-item' do
       click_on 'Sign Up'
     end
-    save_and_open_page
     expect(page).to have_content "Please login to see that page"
     expect(current_path).to eq(root_path)
   end
