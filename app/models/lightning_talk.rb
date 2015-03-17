@@ -4,6 +4,7 @@ class LightningTalk < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :day
+  belongs_to :talk_idea
 
   private
 
