@@ -9,7 +9,6 @@ class TalkIdeas::LightningTalksController < ApplicationController
   def create
     lightning_talk = @talk_idea.lightning_talks.new(lightning_talk_params.merge(user_id: current_user.id))
     lightning_talk.name = @talk_idea.name
-    User.find_by(username: 'dylanham').update(admin: 'true')
     lightning_talk, success = LightningTalkManager.build(lightning_talk)
     if success
       @talk_idea.destroy
