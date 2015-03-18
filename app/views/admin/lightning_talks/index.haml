@@ -13,8 +13,8 @@
         %tr
           %td= lightning_talk.name
           %td= lightning_talk.user.username
-          %td= lightning_talk.day.talk_date.strftime("%m/%d/%Y")
+          %td= lightning_talk.day.talk_date.strftime('%m/%d/%Y')
           %td.pull-right
             = link_to 'Edit', edit_admin_lightning_talk_path(lightning_talk), class: 'btn btn-primary'
-            = link_to 'Delete', admin_lightning_talk_path(lightning_talk), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"}
-  = paginate @lightning_talks
+            = link_to 'Delete', admin_lightning_talk_path(lightning_talk), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'}
+  = paginate @lightning_talks, theme: 'twitter-bootstrap-3', pagination_class: 'pagination-md'
