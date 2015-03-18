@@ -18,4 +18,5 @@ Rails.application.routes.draw do
   end
 
   resources :talk_ideas, only: [:create]
+
 end
