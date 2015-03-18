@@ -3,8 +3,8 @@ require 'rails_helper'
 feature 'Admin Lightning Talks' do
   before {
     User.destroy_all
-    @user = User.create!(username: "deitrick smells", email: "andrew@internet.com", auth_token: "abc123", admin: true)
-    @day = Day.create!(talk_date: Date.today, number_of_slots: 5)
+    @user = create_user(admin: true)
+    @day = create_day
     OmniAuth.config.test_mode = true
 
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({
@@ -21,7 +21,7 @@ feature 'Admin Lightning Talks' do
   }
 
   scenario 'Admin can visit Admin lightning talks index' do
-    talk = LightningTalk.create!(user: @user, day_id: @day.id, name: 'Test Talk')
+    talk = create_lightning_talk(user: @user, day_id: @day.id, name: 'Test Talk')
     visit admin_lightning_talks_path
     expect(page).to have_content 'Manage Talks'
     expect(page).to have_content 'Test Talk'
@@ -43,8 +43,8 @@ feature 'Admin Lightning Talks' do
   end
 
   scenario 'Admin can edit a lightning talk' do
-    new_day = Day.create!(talk_date: Date.tomorrow, number_of_slots: 5)
-    talk = LightningTalk.create!(user: @user, day_id: @day.id, name: 'Test Talk')
+    new_day = create_day(talk_date: Date.tomorrow)
+    talk = create_lightning_talk(name: 'Test Talk')
 
     visit admin_lightning_talks_path
     expect(page).to have_content 'Test Talk'
@@ -60,7 +60,7 @@ feature 'Admin Lightning Talks' do
   end
 
   scenario 'Admin can delete a lightning talk' do
-    talk = LightningTalk.create!(user: @user, day_id: @day.id, name: 'Test Talk')
+    talk = create_lightning_talk(name: 'Test Talk')
 
     visit admin_lightning_talks_path
 
@@ -71,6 +71,64 @@ feature 'Admin Lightning Talks' do
 
     expect(current_path).to eq(admin_lightning_talks_path)
     expect(page).to have_no_content 'Test Talk'
+  end
+
+  scenario 'Admin will not see a paginated lightning talk list 7 or less talks' do
+    talk1 = create_lightning_talk(name: 'One')
+    talk2 = create_lightning_talk(name: 'Two')
+    talk3 = create_lightning_talk(name: 'Three')
+    talk4 = create_lightning_talk(name: 'Four')
+    talk5 = create_lightning_talk(name: 'Five')
+
+    visit admin_lightning_talks_path
+
+    expect(page).to have_content 'One'
+    expect(page).to have_content 'Two'
+    expect(page).to have_content 'Three'
+    expect(page).to have_content 'Four'
+    expect(page).to have_content 'Five'
+    expect(page).to have_no_content 'Next'
+    expect(page).to have_no_content 'Last'
+  end
+
+  scenario 'Admin will see a paginated lightning talk when there are more than 7 talks' do
+    talk1 = create_lightning_talk(name: 'One')
+    talk2 = create_lightning_talk(name: 'Two')
+    talk3 = create_lightning_talk(name: 'Three')
+    talk4 = create_lightning_talk(name: 'Four')
+    talk5 = create_lightning_talk(name: 'Five')
+    talk6 = create_lightning_talk(name: 'Six')
+    talk7 = create_lightning_talk(name: 'Seven')
+    talk8 = create_lightning_talk(name: 'Eight')
+    talk9 = create_lightning_talk(name: 'Nine')
+
+    visit admin_lightning_talks_path
+
+    expect(page).to have_content 'One'
+    expect(page).to have_content 'Two'
+    expect(page).to have_content 'Three'
+    expect(page).to have_content 'Four'
+    expect(page).to have_content 'Five'
+    expect(page).to have_content 'Six'
+    expect(page).to have_content 'Seven'
+    expect(page).to have_no_content 'Eight'
+    expect(page).to have_no_content 'Nine'
+    expect(page).to have_content 'Next'
+    expect(page).to have_content 'Last'
+
+    click_on 'Next'
+
+    expect(page).to have_no_content 'One'
+    expect(page).to have_no_content 'Two'
+    expect(page).to have_no_content 'Three'
+    expect(page).to have_no_content 'Four'
+    expect(page).to have_no_content 'Five'
+    expect(page).to have_no_content 'Six'
+    expect(page).to have_no_content 'Seven'
+    expect(page).to have_content 'Eight'
+    expect(page).to have_content 'Nine'
+    expect(page).to have_content 'Prev'
+    expect(page).to have_content 'First'
   end
 
 end
