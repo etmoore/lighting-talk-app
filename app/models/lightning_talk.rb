@@ -1,4 +1,6 @@
 class LightningTalk < ActiveRecord::Base
+  paginates_per 7
+
   validate :number_of_slots
   validates :name, :user_id, :day_id, presence: true
 

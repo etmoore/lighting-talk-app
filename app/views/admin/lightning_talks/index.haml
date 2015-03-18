@@ -17,3 +17,4 @@
           %td.pull-right
             = link_to 'Edit', edit_admin_lightning_talk_path(lightning_talk), class: 'btn btn-primary'
             = link_to 'Delete', admin_lightning_talk_path(lightning_talk), method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure?"}
+  = paginate @lightning_talks
