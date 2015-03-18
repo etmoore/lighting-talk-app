@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'kaminari', '~> 0.16.3'
 gem 'rails', '4.2.0'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
