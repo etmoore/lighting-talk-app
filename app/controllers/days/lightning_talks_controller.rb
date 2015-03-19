@@ -24,7 +24,7 @@ class Days::LightningTalksController < ApplicationController
   private
 
   def lightning_talk_params
-    params.require(:lightning_talk).permit(:name)
+    params.require(:lightning_talk).permit(:name, :day_id)
   end
 
   def set_day

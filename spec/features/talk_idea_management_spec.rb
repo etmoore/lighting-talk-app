@@ -48,4 +48,5 @@ feature "creating talk ideas", js: true do
     click_on "Create Talk idea"
     expect(page).to have_content("That wasn't a great idea now was it?")
   end
+
 end
