@@ -60,4 +60,6 @@
                     = f.submit class: "btn btn-info"
     %ul.list-group
       - @talk_ideas.each do |talk_idea|
-        %li.list-group-item= talk_idea.name
+        %li.list-group-item
+          = talk_idea.name
+          = link_to "Sign Up", new_talk_idea_lightning_talk_path(talk_idea), class: "btn btn-info btn-xs pull-right"

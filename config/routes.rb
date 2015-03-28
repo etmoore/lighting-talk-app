@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     resources :users, except: [:show]
   end
 
+    resources :talk_ideas, only: [] do
+      resources :lightning_talks, only:[:new, :create], module: :talk_ideas
+    end
+
   resources :talk_ideas, only: [:create]
 
 end
