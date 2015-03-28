@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :set_user, only:[:show, :edit, :update]
+  before_action :require_admin
 
   def index
     @users = User.order(:username).page params[:page]

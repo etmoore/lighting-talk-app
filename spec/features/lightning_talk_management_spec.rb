@@ -2,6 +2,7 @@ require "rails_helper"
 
 feature "creating lightning talks" do
   before {
+    User.destroy_all
     user = User.create!(username: "deitrick", email: "andrew@internet.com", auth_token: "abc123")
     @day = Day.create!(talk_date: Date.today, number_of_slots: 5)
 

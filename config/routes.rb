@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
     resources :lightning_talks
-    resources :users
+    resources :users, except: [:show]
   end
 
   resources :talk_ideas, only: [:create]

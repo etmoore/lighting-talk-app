@@ -19,8 +19,8 @@ end
 
 def create_user(options={})
   defaults = {
-    username: "george_bush",
-    email: "george@internet.com",
+    username: "george_bush#{rand(10000)+1}",
+    email: "george#{rand(10000)}@internet.com",
     auth_token: "abc123",
     admin: false
   }
