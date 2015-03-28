@@ -20,6 +20,7 @@ feature 'Admin Lightning Talks' do
     click_on 'Sign In'
   }
 
+
   scenario 'Admin can visit Admin lightning talks index' do
     talk = create_lightning_talk(user: @user, day_id: @day.id, name: 'Test Talk')
     visit admin_lightning_talks_path
@@ -129,6 +130,13 @@ feature 'Admin Lightning Talks' do
     expect(page).to have_content 'Nine'
     expect(page).to have_content 'Prev'
     expect(page).to have_content 'First'
+  end
+
+  scenario 'non admins cannot visit and are redirected' do
+    @user.update!(admin: false)
+    visit admin_lightning_talks_path
+    expect(current_path).to eq root_path
+    expect(page).to have_content 'You don\'t have permission to access that page'
   end
 
 end

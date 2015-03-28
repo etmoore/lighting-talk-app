@@ -48,5 +48,12 @@ feature 'Admin Dashboard' do
     expect(current_path).to eq(admin_lightning_talks_path)
   end
 
-
+  scenario 'Admin can visit admin users index from dashboard' do
+    visit root_path
+    click_on 'Sign In'
+    click_on 'Admin'
+    expect(page).to have_content 'Manage Users'
+    click_on 'Manage Users'
+    expect(current_path).to eq(admin_users_path)
+  end
 end
